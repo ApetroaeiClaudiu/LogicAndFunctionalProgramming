@@ -1,0 +1,88 @@
+%candidat - alege valori din multimea [-1,0,1]
+candidat(Valori,Valori).
+candidat(Valori,Element):-
+    Valori>(-1),
+    Valori1 is Valori-1,
+    candidat(Valori1,Element).
+% apelarea functiei subsir care primeste numarul N si returneaza
+% sublistele
+subsir(0,[]):-!.
+subsir(N,Rez):-
+    N1 is 2*N+1,
+    solutie(N1,1,Rez,[0],1).
+
+% daca s-a ajuns pe pozitia N-2, numarul generat are diferenta din modul
+% cu 0 == 1 ( pentru a putea adauga elementul 0 la final),si are
+% diferenta din modul cu elementul de dinainte == 1
+solutie(N,Valori,Rez,[Elem|Aux],Lungime):-
+    Lungime=:=N-2,
+    candidat(Valori,I),
+    abs(I-0)=:=1,
+    abs(I-Elem)=:=1,
+    Lungime1 is Lungime+1,
+    solutie(N,Valori,Rez,[I|[Elem|Aux]],Lungime1).
+% daca s-a ajuns pe pozitia N-2, numarul generat are diferenta din modul
+% cu 0 == 1 ( pentru a putea adauga elementul 0 la final),si are
+% diferenta din modul cu elementul de dinainte == 2
+solutie(N,Valori,Rez,[Elem|Aux],Lungime):-
+    Lungime=:=N-2,
+    candidat(Valori,I),
+    abs(I-0)=:=1,
+    abs(I-Elem)=:=2,
+    Lungime1 is Lungime+1,
+    solutie(N,Valori,Rez,[I|[Elem|Aux]],Lungime1).
+
+%daca s-a ajuns pe pozitia N-1, se adauga ultimul element ca fiind 0
+solutie(N,Valori,Rez,[Elem|Aux],Lungime):-
+    Lungime=:=N-1,
+    Lungime1 is N,
+    solutie(N,Valori,Rez,[0|[Elem|Aux]],Lungime1).
+
+%se returneaza solutia
+solutie(N,_,Aux,Aux,N):-!.
+
+
+% daca s-a ajuns pe o pozitie mai mica de N-2 si diferenta dintre numere
+% este 1
+solutie(N,Valori,Rez,[Elem|Aux],Lungime):-
+    Lungime<N-2,
+    candidat(Valori,I),
+    abs(I-Elem)=:=1,
+    Lungime1 is Lungime+1,
+    solutie(N,Valori,Rez,[I|[Elem|Aux]],Lungime1).
+% daca s-a ajuns pe o pozitie mai mica de N-2 si diferenta dintre
+% numere este 2
+solutie(N,Valori,Rez,[Elem|Aux],Lungime):-
+    Lungime<N-2,
+    candidat(Valori,I),
+    abs(I-Elem)=:=2,
+    Lungime1 is Lungime+1,
+    solutie(N,Valori,Rez,[I|[Elem|Aux]],Lungime1).
+
+
+
+
+
+
+
+%diferenta cu 0 sa fie 2 ?????
+%solutie(N,Valori,Rez,[Elem|Aux],Lungime):-
+ %   Lungime=:=N-2,
+  %  candidat(Valori,I),
+   % abs(I-0)=:=2,
+    %abs(I-Elem)=:=1,
+    %Lungime1 is Lungime+1,
+    %solutie(N,Valori,Rez,[I|[Elem|Aux]],Lungime1).
+%solutie(N,Valori,Rez,[Elem|Aux],Lungime):-
+%    Lungime=:=N-2,
+%    candidat(Valori,I),
+%    abs(I-0)=:=2,
+%    abs(I-Elem)=:=2,
+%    Lungime1 is Lungime+1,
+%    solutie(N,Valori,Rez,[I|[Elem|Aux]],Lungime1).
+%!
+
+
+
+
+
